@@ -1,0 +1,36 @@
+{
+  "name": "pics-electron",
+  "version": "1.0.0",
+  "description": "App que selecciona imagenes usando electron",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development electron src/index.js",
+    "lint": "standard",
+    "fix": "standard --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielpqe/Pics-Electron.git"
+  },
+  "keywords": [
+    "electron",
+    "platzi",
+    "danielpqe"
+  ],
+  "author": "Daniel Quispe <danielpqe@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danielpqe/Pics-Electron/issues"
+  },
+  "homepage": "https://github.com/danielpqe/Pics-Electron#readme",
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "electron-compile": "^6.4.3",
+    "electron-debug": "^2.0.0"
+  },
+  "devDependencies": {
+    "devtron": "^1.4.0",
+    "electron-prebuilt-compile": "^2.0.4",
+    "standard": "^11.0.1"
+  }
+}
