@@ -5,8 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development electron src/index.js",
-    "lint": "standard",
-    "fix": "standard --fix"
+    "lint": "standard"
   },
   "repository": {
     "type": "git",
