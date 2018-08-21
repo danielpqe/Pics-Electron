@@ -1,10 +1,20 @@
 import url from 'url'
 import path from 'path'
+import applyFilter from './filters'
+import {setIpc, openDirectory} from './ipcRendererEvents'
 
 window.addEventListener('load', () => {
+  setIpc()
   addImagesEvents()
   searchImagesEvent()
+  selectEvent()
+  buttonEvent('open-directory', openDirectory)
 })
+
+function buttonEvent (id, func) {
+  const openDirectory = document.getElementById(id)
+  openDirectory.addEventListener('click', func)
+}
 
 function addImagesEvents () {
   const thumbs = document.querySelectorAll('li.list-group-item')
@@ -54,4 +64,12 @@ function searchImagesEvent () {
 function selectFirstImage () {
   const image = document.querySelector('li.list-group-item:not(.hidden)')
   changeImage(image)
+}
+
+function selectEvent () {
+  const select = document.getElementById('filters')
+
+  select.addEventListener('change', function () {
+    applyFilter(this.value, document.getElementById('image-displayed'))
+  })
 }

@@ -1,13 +1,17 @@
-import {app, BrowserWindow} from 'electron'
+import {app, BrowserWindow, ipcMain, dialog} from 'electron'
 import devtools from './devtools'
+import fs from 'fs'
+import isImage from 'is-image'
+import path from 'path'
+import filesize from 'filesize'
+
+let win
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 
 if (process.env.NODE_ENV === 'development') {
   devtools()
 }
-
-let win
 
 function createWindow () {
   // Crea la ventana del navegador.
@@ -32,6 +36,31 @@ function createWindow () {
 // la inicialización y esté listo para crear ventanas del navegador.
 // Algunas APIs pueden solamente ser usadas despues de que este evento ocurra.
 app.on('ready', createWindow)
+
+ipcMain.on('open-directory', (event) => {
+  dialog.showOpenDialog(win, {
+    title: 'Seleccione ubicación',
+    buttonLabel: 'Abrir ubicación',
+    properties: ['openDirectory']
+  }, (dir) => {
+    const images = []
+    if (dir) {
+      fs.readdir(dir[0], (err, files) => {
+        if (err) throw err
+        for (let i = 0, length = files.length; i < length; i++) {
+          if (isImage(files[i])) {
+            let imageFile = path.join(dir[0], files[i])
+            let stats = fs.statSync(imageFile)
+            let size = filesize(stats.size, {round: 0})
+            images.push({ filename: files[i], src: `file://${imageFile}`, size: size})
+          }
+        }
+
+        event.sender.send('load-images', images)
+      })
+    }
+  })
+})
 
 // Salir cuando todas las ventanas estén cerradas.
 app.on('window-all-closed', () => {
