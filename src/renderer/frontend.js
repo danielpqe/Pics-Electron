@@ -17,9 +17,13 @@ function addImagesEvents () {
 }
 
 function changeImage (node) {
-  document.querySelector('li.selected').classList.remove('selected')
-  node.classList.add('selected')
-  document.getElementById('image-displayed').src = node.querySelector('img').src
+  if (node) {
+    document.querySelector('li.selected').classList.remove('selected')
+    node.classList.add('selected')
+    document.getElementById('image-displayed').src = node.querySelector('img').src
+  } else {
+    document.getElementById('image-displayed').src = ''
+  }
 }
 
 function searchImagesEvent () {
@@ -38,6 +42,11 @@ function searchImagesEvent () {
         }
       }
       selectFirstImage()
+    } else {
+      const hidden = document.querySelectorAll('li.hidden')
+      for (let i = 0, length = hidden.length; i < length; i++) {
+        hidden[i].classList.remove('hidden')
+      }
     }
   })
 }
