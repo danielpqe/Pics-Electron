@@ -5,7 +5,11 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development electron src/index.js",
-    "lint": "standard"
+    "lint": "standard",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "package-win": "electron-forge package --platform=win32 --arch=x64",
+    "make": "electron-forge make"
   },
   "repository": {
     "type": "git",
@@ -26,12 +30,49 @@
     "cross-env": "^5.2.0",
     "electron-compile": "^6.4.3",
     "electron-debug": "^2.0.0",
+    "electron-squirrel-startup": "^1.0.0",
     "filesize": "^3.6.1",
     "is-image": "^2.0.0"
   },
   "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "devtron": "^1.4.0",
-    "electron-prebuilt-compile": "^2.0.4",
+    "electron-forge": "^5.2.2",
+    "electron-prebuilt-compile": "3.0.0",
     "standard": "^11.0.1"
+  },
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {
+        "asar": true
+      },
+      "electronWinstallerConfig": {
+        "name": "pics_electron"
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "",
+        "name": ""
+      },
+      "windowsStoreConfig": {
+        "packageName": "",
+        "name": "picselectron"
+      }
+    }
   }
 }
