@@ -81,3 +81,14 @@ app.on('activate', () => {
 
 // En este archivo tu puedes incluir el resto del código del proceso principal de
 // tu aplicación. Tu también puedes ponerlos en archivos separados y requerirlos aquí.
+
+// evento guardar
+ipcMain.on('open-save-dialog', (event) => {
+  dialog.showSaveDialog(win,{
+    title: 'Guardar imagen modificada',
+    buttonLabel: 'Guardar images',
+    filters:[]
+  },(file)=>{
+    console.log('file')
+  })
+})
